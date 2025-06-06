@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/*  COLOR & TYPOGRAPHY VARIABLES  */
+
+:root{
+
+    --Secondary-110:#1C2346 ;
+    --Secondary-100:#37437D ;
+    --Secondary-90:#5562A2 ;
+    --Secondary-70:#707DBF ;
+    --Secondary-60:#ABB4DD ;
+    --Secondary-50:#D3DAF9 ;
+    --Primary-100:#F26CF9 ;
+    --Primary-90:#F589FA ;
+    --Primary-50:#FCD3FE ;
+    --Primary-40:#FCE2FE ;
+    --Primary-30:#FDEDFE ;
+    --Yellow-100:#FFCA39 ;
+    --Yellow-90:#FFEFC3 ;
+    --Grey-10:#FFFFFF ;
+    --Grey-20:#F7F7F7 ;
+    --Grey-30:#EDEDED ;
+    --Grey-40:#E0E0E1 ;
+    --Grey-50:#C3C3C4 ;
+    --Grey-60:#9F9FA1 ;
+    --Grey-70:#777779 ;
+    --Grey-80:#636365 ;
+    --Grey-90:#434345 ;
+    --Grey-100:#1E1E20 ;
+    --Cool-Grey-10:#EEEFFF ;
+    --Cool-Grey-20:#E4E5F5 ;
+    --Cool-Grey-30:#DDDEED ;
+    --Cool-Grey-40:#D1D2E0 ;
+    --Cool-Grey-50:#B0B1BD ;
+    --Cool-Grey-60:#8F8F99 ;
+    --Cool-Grey-70:#72737A ;
+    --Cool-Grey-80:#56565C ;
+    --Cool-Grey-90:#39393D ;
+    --Cool-Grey-100:#131314 ;
+
+    --font-standard: 'Inter', sans-serif;
+
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+}
+
+h1,h2,h3,h4,h5,h6,body,p,button,input,textarea,small{
+    font-family: var(--font-standard)
+}
+
+h1 {
+    font-size: 32px;
+}
+h2 {
+    font-size: 28px;
+}
+h3 {
+    font-size: 26px;
+}
+h4 {
+    font-size: 24px;
+}
+h5 {
+    font-size: 22px;
+}
+h6 {
+    font-size: 20px;
+}
+
+
+.weight-bold {
+    font-weight: var(--font-bold);
+}
+.weight-semi-bold {
+    font-weight: var(--font-bold);
+}
+.weight-medium {
+    font-weight: var(--font-bold);
+}
+.weight-regular {
+    font-weight: var(--font-bold);
+}
