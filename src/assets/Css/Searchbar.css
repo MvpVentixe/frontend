@@ -1,0 +1,23 @@
+.searchbar{
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    margin: 1rem;
+    border-radius: 30px;
+    background: var(--Grey-Grey-10, #FFF);
+    align-items: center;
+}
+
+.search-btn{
+    border: none;
+    background-color: transparent;
+}
+
+.search-input{
+    border: none;
+}
+
+.search-btn-icon{
+    height: 16px;
+    width: 16px;
+}
