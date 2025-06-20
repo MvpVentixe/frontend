@@ -23,7 +23,7 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const res = await fetch(`https://localhost:7116/api/event/${id}`);
+        const res = await fetch(`https://eventserviceapplication-etgsccg0b3fhhbcv.swedencentral-01.azurewebsites.net/api/Event/${id}`);
         if (!res.ok) throw new Error("Failed to fetch event");
         const data = await res.json();
         console.log("Loaded event:", data);
@@ -49,7 +49,7 @@ const EventDetails = () => {
         return;
       }
     try {
-      const response = await fetch("https://localhost:7189/api/booking/bookingCreation", {
+      const response = await fetch("https://bookingserviceapplication-examgbengsb8dkfh.swedencentral-01.azurewebsites.net/api/Booking/bookingCreation", {
         method: "POST",
         headers: 
         {

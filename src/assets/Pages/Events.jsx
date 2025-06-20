@@ -11,7 +11,7 @@ const Events = () => {
 
   const fetchEvents = async ()=>{
     try {
-      const response = await fetch("https://localhost:7116/api/event/allevents");
+      const response = await fetch("https://eventserviceapplication-etgsccg0b3fhhbcv.swedencentral-01.azurewebsites.net/api/Event/allevents");
       if(!response.ok)
         {
           const errordata = await response.json();

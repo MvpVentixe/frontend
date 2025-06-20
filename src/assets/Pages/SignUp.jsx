@@ -28,7 +28,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await fetch('https://localhost:7182/api/auth/signup', {
+      const response = await fetch('https://authserviceapplication-g9a7chb9hka9ded7.swedencentral-01.azurewebsites.net/api/Auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

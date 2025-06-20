@@ -17,7 +17,7 @@ const Bookings = () => {
       const userId = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
 
       try {
-        const response = await fetch(`https://localhost:7189/api/booking/bookingsByUserId/${userId}`);
+        const response = await fetch(`https://bookingserviceapplication-examgbengsb8dkfh.swedencentral-01.azurewebsites.net/api/Booking/bookingsByUserId/${userId}`);
         if (!response.ok) throw new Error("Failed to get bookings");
 
         const data = await response.json();

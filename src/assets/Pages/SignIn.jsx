@@ -20,7 +20,7 @@ const SignIn = () => {
    const handleSubmit = async (e) => {
       e.preventDefault();
         try {
-          const response = await fetch("https://localhost:7182/api/auth/signin", {
+          const response = await fetch("https://authserviceapplication-g9a7chb9hka9ded7.swedencentral-01.azurewebsites.net/api/Auth/signin", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

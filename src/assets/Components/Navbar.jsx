@@ -8,7 +8,7 @@ const Navbar = () => {
     {
 
       try {
-        const response = await fetch("https://localhost:7182/api/auth/signout", {
+        const response = await fetch("https://authserviceapplication-g9a7chb9hka9ded7.swedencentral-01.azurewebsites.net/api/Auth/signout", {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${localStorage.getItem(token)}`
