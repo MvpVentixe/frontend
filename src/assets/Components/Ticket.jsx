@@ -5,7 +5,7 @@ const Ticket = ({bookingId, eventName, location, date, time, attendeeName, barco
 
   const handleClick = async ()=>{
     try {
-    const response = await fetch(`https://localhost:7189/api/booking/deleteBooking/${bookingId}`, {
+    const response = await fetch(`https://bookingserviceapplication-examgbengsb8dkfh.swedencentral-01.azurewebsites.net/api/Booking/deleteBooking/${bookingId}`, {
       method: 'DELETE'
     });
 

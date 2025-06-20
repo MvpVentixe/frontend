@@ -37,19 +37,19 @@ const Navbar = () => {
     <div className='navbar'>
       <div className='navbar-flex'>
         <Link className='logo text-decoration' to="/events">
-          <img src="/src/assets/Icons/Logo/logo.svg" alt="Ventixe Logo"/>
+          <img src="/Icons/Logo/logo.svg" alt="Ventixe Logo"/>
           <span id='icon-names' className="logo-name"> Ventixe </span>
         </Link>
         <Link className='text-decoration' to="/events">
-          <button className='navbar-btn' > <img className='navbar-icon' src="/src/assets/Icons/Nav/Vector-3.svg" alt="events icon" /> <span id='icon-names'> Events </span> </button>
+          <button className='navbar-btn' > <img className='navbar-icon' src="/Icons/Nav/Vector-3.svg" alt="events icon" /> <span id='icon-names'> Events </span> </button>
         </Link>
 
         { isAuthenticated && (
           <>
             <Link className='text-decoration' to="/bookings">
-              <button className='navbar-btn' > <img className='navbar-icon' src="/src/assets/Icons/Nav/Vector-8.svg" alt="booking icon" /> <span id='icon-names'> Bookings </span> </button>
+              <button className='navbar-btn' > <img className='navbar-icon' src="/Icons/Nav/Vector-8.svg" alt="booking icon" /> <span id='icon-names'> Bookings </span> </button>
             </Link>
-            <button onClick={handleSignOut} className='navbar-btn' > <img className='navbar-icon' src="/src/assets/Icons/Nav/Vector-1.svg" alt="sign out icon" /> <span id='icon-names'> Sign Out </span> </button>
+            <button onClick={handleSignOut} className='navbar-btn' > <img className='navbar-icon' src="/Icons/Nav/Vector-1.svg" alt="sign out icon" /> <span id='icon-names'> Sign Out </span> </button>
             
           </>
 
