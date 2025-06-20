@@ -10,20 +10,26 @@ const EventDetails = () => {
   const [event, setEvent] = useState(null);
   const [isBooked, setIsBooked] = useState(false)
   const token = localStorage.getItem("token");
-  const decoded = jwtDecode(token);
-  console.log("🧪 Decoded JWT:", decoded);
-  const userId = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
-
+  let decoded = null;
+  let userId = null;
+  if (token) {
+      try {
+        decoded = jwtDecode(token);
+        userId = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+      } catch (error) {
+        console.error("Invalid token:", error);
+      }
+    }
   useEffect(() => {
     const fetchEvent = async () => {
       try {
         const res = await fetch(`https://localhost:7116/api/event/${id}`);
         if (!res.ok) throw new Error("Failed to fetch event");
         const data = await res.json();
-        console.log("✅ Loaded event:", data);
+        console.log("Loaded event:", data);
         setEvent(data);
       } catch (err) {
-        console.error("❌ Failed to load event:", err);
+        console.error("Failed to load event:", err);
         console.error(err);
       }
     };
