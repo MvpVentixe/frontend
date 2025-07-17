@@ -6,10 +6,12 @@ import { jwtDecode } from 'jwt-decode';
 
 const EventDetails = () => {
 
+
+  const token = localStorage.getItem("token");
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [isBooked, setIsBooked] = useState(false)
-  const token = localStorage.getItem("token");
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
   let decoded = null;
   let userId = null;
   if (token) {
@@ -33,9 +35,19 @@ const EventDetails = () => {
         console.error(err);
       }
     };
-
     fetchEvent();
   }, [id]);
+
+  useEffect(() => {
+        const handleAuthChange = () => {
+          setIsAuthenticated(!!localStorage.getItem("token"));
+        };
+    
+        window.addEventListener("authChanged", handleAuthChange);
+        return () => {
+          window.removeEventListener("authChanged", handleAuthChange);
+        };
+      }, []);
 
     const handleBtnClick = async ()=>{
         if (!event) {
@@ -107,7 +119,17 @@ const EventDetails = () => {
         <p className='event-price'>{event.price}$</p>
       </div>
       <p>{event.description}</p>
-      <button onClick={handleBtnClick} className='buy-btn' disabled={isBooked}>{isBooked ? "Booked" : "Book Event"}</button>
+        <button onClick={()=>{
+
+            if(isAuthenticated){
+              handleBtnClick();
+            } else {
+              window.location.href = "/auth/signin";
+            }
+        }}
+        className='buy-btn' disabled={isBooked}>{isBooked ? "Booked" : "Book Event"}</button>
+      
+
     </div>
   )
 }

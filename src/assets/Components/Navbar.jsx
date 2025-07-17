@@ -6,7 +6,6 @@ const Navbar = () => {
   const isAuthenticated = !!localStorage.getItem('token');
   const handleSignOut = async () => 
     {
-
       try {
         const response = await fetch("https://authserviceapplication-g9a7chb9hka9ded7.swedencentral-01.azurewebsites.net/api/Auth/signout", {
           method: "POST",
@@ -30,7 +29,6 @@ const Navbar = () => {
         console.error('Error during sign out:', error);
         alert('Something went wrong');
       }
-
     }
 
   return (
