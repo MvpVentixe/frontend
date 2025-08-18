@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-
-
+import LoadingOverlay from '../Components/LoadingOverlay';
 
 const EventDetails = () => {
-
 
   const token = localStorage.getItem("token");
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [isBooked, setIsBooked] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+  const [loading, setLoading] = useState(false);
   let decoded = null;
   let userId = null;
   if (token) {
@@ -60,6 +59,9 @@ const EventDetails = () => {
         alert("Missing user or event ID");
         return;
       }
+
+      setLoading(true);
+
     try {
       const response = await fetch("https://bookingserviceapplication-examgbengsb8dkfh.swedencentral-01.azurewebsites.net/api/Booking/bookingCreation", {
         method: "POST",
@@ -86,51 +88,56 @@ const EventDetails = () => {
         } catch (error) {
           alert("An error occurred: " + error.message);
         }
-
+        finally{
+          setLoading(false);
+        }
   }
 
 
   if (!event) return <p>Loading...</p>;
 
   return (
-    <div className='event-details'>
-      <div className='background-img' style={{ 
-              backgroundImage: `url(${event.imageUrl})`, 
-              backgroundSize: 'cover', 
-              backgroundPosition: 'center' 
-            }}>
-        <p className='category'>{event.category}</p>
-      </div>
-      <h4>{event.title}</h4>
-      <div className='eventinfo-group'>
-        <div className='event-date'>
-          <p>{new Date(event.eventDateTime).toLocaleString('en-US', {
-              weekday: 'short',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
-            })}
-          </p>
-
-          <p>{event.location}</p>
+    <>
+      {loading && <LoadingOverlay/>}
+      <div className='event-details'>
+        <div className='background-img' style={{ 
+                backgroundImage: `url(${event.imageUrl})`, 
+                backgroundSize: 'cover', 
+                backgroundPosition: 'center' 
+              }}>
+          <p className='category'>{event.category}</p>
         </div>
-        <p className='event-price'>{event.price}$</p>
+        <h4>{event.title}</h4>
+        <div className='eventinfo-group'>
+          <div className='event-date'>
+            <p>{new Date(event.eventDateTime).toLocaleString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              })}
+            </p>
+
+            <p>{event.location}</p>
+          </div>
+          <p className='event-price'>{event.price}$</p>
+        </div>
+        <p>{event.description}</p>
+          <button onClick={()=>{
+
+              if(isAuthenticated){
+                handleBtnClick();
+              } else {
+                window.location.href = "/auth/signin";
+              }
+          }}
+          className='buy-btn' disabled={isBooked}>{isBooked ? "Booked" : "Book Event"}</button>
+        
+
       </div>
-      <p>{event.description}</p>
-        <button onClick={()=>{
-
-            if(isAuthenticated){
-              handleBtnClick();
-            } else {
-              window.location.href = "/auth/signin";
-            }
-        }}
-        className='buy-btn' disabled={isBooked}>{isBooked ? "Booked" : "Book Event"}</button>
-      
-
-    </div>
+    </>
   )
 }
 

@@ -9,6 +9,7 @@ import SignUp from './assets/Pages/SignUp'
 import SignIn from './assets/Pages/SignIn'
 import PrivateRoute from './assets/Components/PrivateRoute'
 import EventDetails from './assets/Pages/EventDetails'
+import AddEventForm from './assets/Pages/AddEventForm'
 
 
 const App = () => {
@@ -35,7 +36,16 @@ const App = () => {
               <Bookings/>
             </PrivateRoute> 
           }
-        />
+          />
+        <Route
+          path='addeventform'
+          element={
+          <PrivateRoute>
+            <AddEventForm/>
+          </PrivateRoute>}
+          />
+          
+
         
 
       </Route>

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Css/Ticket.css';
+import LoadingOverlay from './LoadingOverlay';
 
 const Ticket = ({bookingId, eventName, location, date, time, attendeeName, barcodeValue }) => {
 
+  const [loading, setLoading] = useState(false);
+
   const handleClick = async ()=>{
+    setLoading(true);
     try {
     const response = await fetch(`https://bookingserviceapplication-examgbengsb8dkfh.swedencentral-01.azurewebsites.net/api/Booking/deleteBooking/${bookingId}`, {
       method: 'DELETE'
@@ -21,30 +25,36 @@ const Ticket = ({bookingId, eventName, location, date, time, attendeeName, barco
   } catch (error) {
     console.error('Network error:', error);
     alert('Could not connect to the booking service');
+  } finally {
+    setLoading(false);
   }
   }
 
 
 
   return (
-    <div className="ticket">
-      <h1>{eventName}</h1>
-      <div className="details">
-        <p><strong>Location:</strong> {location}</p>
-        <p><strong>Date:</strong> {date}</p>
-        <p><strong>Time:</strong> {time}</p>
+    <>
+      {loading && <LoadingOverlay/>}
+      <div className="ticket">
+        <h1>{eventName}</h1>
+        <div className="details">
+          <p><strong>Location:</strong> {location}</p>
+          <p><strong>Date:</strong> {date}</p>
+          <p><strong>Time:</strong> {time}</p>
+        </div>
+        <div className="barcode">
+          <img 
+            src={`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(barcodeValue)}&size=150x50`} 
+            alt="Barcode" 
+          />
+        </div>
+        <div className="name">
+          Attendee: {attendeeName}
+        </div>
+        <button className='signup-btn' onClick={handleClick} disabled={loading}> Cancel booking </button>
       </div>
-      <div className="barcode">
-        <img 
-          src={`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(barcodeValue)}&size=150x50`} 
-          alt="Barcode" 
-        />
-      </div>
-      <div className="name">
-        Attendee: {attendeeName}
-      </div>
-      <button className='signup-btn' onClick={handleClick}> Cancel booking </button>
-    </div>
+    
+    </>
   );
 };
 

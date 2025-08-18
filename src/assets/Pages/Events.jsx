@@ -2,14 +2,22 @@ import { useNavigate } from 'react-router-dom'
 import Searchbar from '../Components/Searchbar'
 import "./Events.css"
 import React, { useEffect, useState } from 'react'
+import LoadingOverlay from '../Components/LoadingOverlay'
 
 const Events = () => {
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const eventsPerPage = 6;
     const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(false)
+    
+  const OnSearch = async (data)=>{
+    setEvents(data);
+    setCurrentPage(1);
+  }
 
   const fetchEvents = async ()=>{
+    setLoading(true);
     try {
       const response = await fetch("https://eventserviceapplication-etgsccg0b3fhhbcv.swedencentral-01.azurewebsites.net/api/Event/allevents");
       if(!response.ok)
@@ -25,6 +33,8 @@ const Events = () => {
     } catch (error) {
       console.error("Fetch error:", error);
       alert("Something went wrong fetching events");
+    } finally {
+      setLoading(false);
     }
   }
 const indexOfLastEvent = currentPage * eventsPerPage;
@@ -44,7 +54,7 @@ useEffect(()=>{
   return (
     <div className='event-grid'>
       <div className="searchbar-grid">
-        <Searchbar/>
+        <Searchbar OnSearch={OnSearch} />
       </div>
 
         {currentEvents.map(event => (

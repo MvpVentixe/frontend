@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import LoadingOverlay from "./LoadingOverlay";
 import { Link } from "react-router-dom";
 
 const Header = () => {
@@ -6,9 +7,11 @@ const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
   const [isOpen, setIsOpen] = useState(false);
   const [isHeaderOpen, setIsHeaderOpen] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleSignOut = async () => 
     {
+      setLoading(true);
       try {
         const response = await fetch("https://authserviceapplication-g9a7chb9hka9ded7.swedencentral-01.azurewebsites.net/api/Auth/signout", {
           method: "POST",
@@ -32,6 +35,9 @@ const Header = () => {
         console.error('Error during sign out:', error);
         alert('Something went wrong');
       }
+      finally{
+        setLoading(false);
+      }
     }
 
   useEffect(() => {
@@ -52,6 +58,7 @@ const Header = () => {
 
   return (
     <>
+      {loading && <LoadingOverlay/>}
       <div className="mobile-header-display">
         {isHeaderOpen && (
           <div className="header">
@@ -77,9 +84,12 @@ const Header = () => {
             </Link> */}
 
             {!isAuthenticated && (
-              <Link className="navbar-a" to="/auth/signin" onClick={toggleDropdown}>
-                <button className="navbar-btn" type="button">Sign In</button>
-              </Link>
+              <>
+                
+                <Link className="navbar-a" to="/auth/signin" onClick={toggleDropdown}>
+                  <button className="navbar-btn" type="button">Sign In</button>
+                </Link>
+              </>
             )}
             {isAuthenticated && (
               <>
@@ -99,13 +109,17 @@ const Header = () => {
         <p className="route"><span className="route-highlight">Dashboard</span> / Events</p>
         {!isAuthenticated && (
           <>
-            <Link to="/auth/signin" className="text-decoration">
-              <button id="header-signout-btn">
-                Sign In
-                <img src="/Icons/System/UserCircleCheck.svg" alt="sign in icon" />
-              </button>
-            </Link>
-          
+            <div className="disp-flex">
+              <div className="signin-clue">
+                    <p>Sign in to see more features</p>
+              </div>
+              <Link to="/auth/signin" className="text-decoration">
+                <button id="header-signout-btn">
+                  Sign In
+                  <img src="/Icons/System/UserCircleCheck.svg" alt="sign in icon" />
+                </button>
+              </Link>
+            </div>
           </>
         )}
       </div>

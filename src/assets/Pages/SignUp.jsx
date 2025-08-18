@@ -1,8 +1,12 @@
-
+import LoadingOverlay from '../Components/LoadingOverlay';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
 const SignUp = () => {
+
+  const [loading, setLoading] = useState(false)
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -21,12 +25,12 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
-
+    
+    setLoading(true);
     try {
       const response = await fetch('https://authserviceapplication-g9a7chb9hka9ded7.swedencentral-01.azurewebsites.net/api/Auth/signup', {
         method: 'POST',
@@ -60,86 +64,92 @@ const SignUp = () => {
     } catch (error) {
       console.error('Network or server error:', error);
       alert('Network or server error occurred.');
+    } finally{
+      setLoading(false);
     }
   };
 
   return (
-    <div className='sign-up-container'>
-      <h3>Sign Up</h3>
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='form-group'>
-          <label htmlFor='firstName'>First Name</label>
-          <input
-            id='firstName'
-            type='text'
-            name='firstName'
-            value={formData.firstName}
-            onChange={handleChange}
-            placeholder='First Name'
-            required
-          />
-        </div>
+    <>
+      {loading && <LoadingOverlay/>}
+      <div className='sign-up-container'>
+        <h3>Sign Up</h3>
+        <form className='form' onSubmit={handleSubmit}>
+          <div className='form-group'>
+            <label htmlFor='firstName'>First Name</label>
+            <input
+              id='firstName'
+              type='text'
+              name='firstName'
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder='First Name'
+              required
+            />
+          </div>
 
-        <div className='form-group'>
-          <label htmlFor='lastName'>Last Name</label>
-          <input
-            id='lastName'
-            type='text'
-            name='lastName'
-            value={formData.lastName}
-            onChange={handleChange}
-            placeholder='Last Name'
-            required
-          />
-        </div>
+          <div className='form-group'>
+            <label htmlFor='lastName'>Last Name</label>
+            <input
+              id='lastName'
+              type='text'
+              name='lastName'
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder='Last Name'
+              required
+            />
+          </div>
 
-        <div className='form-group'>
-          <label htmlFor='email'>Email</label>
-          <input
-            id='email'
-            type='email'
-            name='email'
-            value={formData.email}
-            onChange={handleChange}
-            placeholder='Email'
-            required
-          />
-        </div>
+          <div className='form-group'>
+            <label htmlFor='email'>Email</label>
+            <input
+              id='email'
+              type='email'
+              name='email'
+              value={formData.email}
+              onChange={handleChange}
+              placeholder='Email'
+              required
+            />
+          </div>
 
-        <div className='form-group'>
-          <label htmlFor='password'>Password</label>
-          <input
-            id='password'
-            type='password'
-            name='password'
-            value={formData.password}
-            onChange={handleChange}
-            placeholder='Password'
-            required
-          />
-        </div>
+          <div className='form-group'>
+            <label htmlFor='password'>Password</label>
+            <input
+              id='password'
+              type='password'
+              name='password'
+              value={formData.password}
+              onChange={handleChange}
+              placeholder='Password'
+              required
+            />
+          </div>
 
-        <div className='form-group'>
-          <label htmlFor='confirmPassword'>Confirm Password</label>
-          <input
-            id='confirmPassword'
-            type='password'
-            name='confirmPassword'
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            placeholder='Confirm Password'
-            required
-          />
-        </div>
+          <div className='form-group'>
+            <label htmlFor='confirmPassword'>Confirm Password</label>
+            <input
+              id='confirmPassword'
+              type='password'
+              name='confirmPassword'
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder='Confirm Password'
+              required
+            />
+          </div>
 
-        <button className='signup-btn' type='submit'>
-          Sign Up
-        </button>
-      </form>
+          <button className='signup-btn' type='submit' disabled={loading}>
+            Sign Up
+          </button>
+        </form>
 
-      <p> Already have an account? <Link to="/auth/signin">Sign in</Link> </p>
+        <p> Already have an account? <Link to="/auth/signin">Sign in</Link> </p>
 
-    </div>
+      </div>
+      
+    </>
   );
 };
 
