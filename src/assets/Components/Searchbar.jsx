@@ -8,15 +8,23 @@ const Searchbar = ( {OnSearch} ) => {
   const handleSubmit = async (e)=>{
     e.preventDefault();
     try {
-      // then paste value variable into the url
-      const response = await fetch(`https://eventserviceapplication-etgsccg0b3fhhbcv.swedencentral-01.azurewebsites.net/api/Event/onsearch/${value}`);
-      if(!response.ok){
-        const errordata = await response.json();
-        alert(errordata.message || "failed to load search results")
-        return
+
+      let data;
+
+      if(!value.trim()){
+        const res = await fetch("https://eventserviceapplication-etgsccg0b3fhhbcv.swedencentral-01.azurewebsites.net/api/Event/allevents")
+        data = await res.json();
+      } else {
+
+        const response = await fetch(`https://eventserviceapplication-etgsccg0b3fhhbcv.swedencentral-01.azurewebsites.net/api/Event/onsearch/${value}`);
+        if(!response.ok){
+          const errordata = await response.json();
+          alert(errordata.message || "failed to load search results")
+          return
+        }
+        data = await response.json();
       }
 
-      const data = await response.json();
       OnSearch(data)
       
     } catch (error) {
