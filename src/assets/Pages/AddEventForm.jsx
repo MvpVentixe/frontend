@@ -21,7 +21,7 @@ const AddEventForm = () => {
     const handleSubmit = async (e)=>{
         e.preventDefault();
         try {
-            const res = await fetch("https://authserviceapplication-g9a7chb9hka9ded7.swedencentral-01.azurewebsites.net/api/Event/addevent", {
+            const res = await fetch("https://eventserviceapplication-etgsccg0b3fhhbcv.swedencentral-01.azurewebsites.net/api/Event/addevent", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
