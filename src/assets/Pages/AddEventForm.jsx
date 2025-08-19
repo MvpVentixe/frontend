@@ -61,7 +61,7 @@ const AddEventForm = () => {
   return (
     <div className='page-container'>
         <h1>Add event</h1>
-        <form action="POST" className='form-flex' onSubmit={handleSubmit}>
+        <form className='form-flex' onSubmit={handleSubmit}>
             <div className='form-group'>
                 <label htmlFor="" className='label-style'>Event title</label>
                 <input name='title' type="text" value={formData.title} className='input-style' onChange={handleChange} placeholder='Event title'/>
